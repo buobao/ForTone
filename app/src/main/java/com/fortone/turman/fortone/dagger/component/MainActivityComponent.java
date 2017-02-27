@@ -12,4 +12,6 @@ import dagger.Component;
 @Component(modules = MainActivityModule.class)
 public interface MainActivityComponent {
     void inject(MainActivityView view);
+
+    MainActivityPresenter getPresenter();
 }

@@ -6,9 +6,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fortone.turman.fortone.R;
+import com.fortone.turman.fortone.Utils;
 import com.fortone.turman.fortone.dagger.component.DaggerMainActivityComponent;
+import com.fortone.turman.fortone.dagger.component.DaggerUtilsComponent;
 import com.fortone.turman.fortone.dagger.component.MainActivityComponent;
+import com.fortone.turman.fortone.dagger.component.UtilsComponent;
 import com.fortone.turman.fortone.dagger.module.MainActivityModule;
+import com.fortone.turman.fortone.dagger.module.UtilsModule;
 import com.fortone.turman.fortone.presenter.MainActivityPresenter;
 import com.fortone.turman.fortone.view.MainActivityView;
 
@@ -23,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
     TextView textView;
 
     @Inject
-    MainActivityPresenter presenter;
+    Utils utils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +35,20 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        MainActivityComponent component = DaggerMainActivityComponent.builder()
-                .mainActivityModule(new MainActivityModule(this))
-                .build();
-        component.inject(this);
+//        MainActivityComponent component = DaggerMainActivityComponent.builder()
+//                .mainActivityModule(new MainActivityModule(this))
+//                .build();
+//        component.inject(this);
+//        presenter = component.getPresenter();
 
-        textView.setOnClickListener(v->presenter.getState(1));
+        UtilsComponent component = DaggerUtilsComponent.builder().utilsModule(new UtilsModule()).build();
+        component.inject(this);
+        utils = component.provideUtils();
+
+        textView.setOnClickListener(v->{
+            //presenter.getState(1)
+            utils.show(this, "hello");
+        });
     }
 
     @Override
