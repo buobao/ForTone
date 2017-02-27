@@ -1,6 +1,7 @@
 package com.fortone.turman.fortone.dagger.component;
 
 import com.fortone.turman.fortone.dagger.module.MainActivityModule;
+import com.fortone.turman.fortone.presenter.MainActivityPresenter;
 import com.fortone.turman.fortone.view.MainActivityView;
 
 import dagger.Component;

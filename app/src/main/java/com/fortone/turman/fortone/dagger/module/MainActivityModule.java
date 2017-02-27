@@ -19,7 +19,7 @@ public class MainActivityModule {
     }
 
     @Provides
-    MainActivityPresenter provideUserModel() {
+    MainActivityPresenter providePresenter() {
         return new MainActivityPresenterImpl(mView);
     }
 }

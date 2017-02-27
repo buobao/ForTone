@@ -8,9 +8,11 @@ import android.widget.Toast;
 import com.fortone.turman.fortone.R;
 import com.fortone.turman.fortone.dagger.component.DaggerMainActivityComponent;
 import com.fortone.turman.fortone.dagger.component.MainActivityComponent;
+import com.fortone.turman.fortone.dagger.module.MainActivityModule;
 import com.fortone.turman.fortone.presenter.MainActivityPresenter;
-import com.fortone.turman.fortone.presenter.impl.MainActivityPresenterImpl;
 import com.fortone.turman.fortone.view.MainActivityView;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,7 +22,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
     @BindView(R.id.text)
     TextView textView;
 
-    private MainActivityPresenter presenter;
+    @Inject
+    MainActivityPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +31,9 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        MainActivityComponent component = DaggerMainActivityComponent.builder().build();
+        MainActivityComponent component = DaggerMainActivityComponent.builder()
+                .mainActivityModule(new MainActivityModule(this))
+                .build();
         component.inject(this);
 
         textView.setOnClickListener(v->presenter.getState(1));
