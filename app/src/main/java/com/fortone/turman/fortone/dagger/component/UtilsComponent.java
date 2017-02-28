@@ -1,8 +1,7 @@
 package com.fortone.turman.fortone.dagger.component;
 
-import com.fortone.turman.fortone.Utils;
 import com.fortone.turman.fortone.dagger.module.UtilsModule;
-import com.fortone.turman.fortone.view.MainActivityView;
+import com.fortone.turman.fortone.view.impl.MainActivity;
 
 import dagger.Component;
 
@@ -11,7 +10,5 @@ import dagger.Component;
  */
 @Component(modules = UtilsModule.class)
 public interface UtilsComponent {
-    void inject(MainActivityView view);
-
-    Utils provideUtils();
+    void inject(MainActivity view);
 }

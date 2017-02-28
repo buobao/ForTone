@@ -9,7 +9,6 @@ import com.fortone.turman.fortone.R;
 import com.fortone.turman.fortone.Utils;
 import com.fortone.turman.fortone.dagger.component.DaggerMainActivityComponent;
 import com.fortone.turman.fortone.dagger.component.DaggerUtilsComponent;
-import com.fortone.turman.fortone.dagger.component.MainActivityComponent;
 import com.fortone.turman.fortone.dagger.component.UtilsComponent;
 import com.fortone.turman.fortone.dagger.module.MainActivityModule;
 import com.fortone.turman.fortone.dagger.module.UtilsModule;
@@ -27,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
     TextView textView;
 
     @Inject
-    Utils utils;
+    MainActivityPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,19 +34,17 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-//        MainActivityComponent component = DaggerMainActivityComponent.builder()
-//                .mainActivityModule(new MainActivityModule(this))
-//                .build();
-//        component.inject(this);
-//        presenter = component.getPresenter();
+        DaggerMainActivityComponent.builder()
+                .mainActivityModule(new MainActivityModule(this))
+                .build().inject(this);
 
-        UtilsComponent component = DaggerUtilsComponent.builder().utilsModule(new UtilsModule()).build();
-        component.inject(this);
-        utils = component.provideUtils();
+//        UtilsComponent component = DaggerUtilsComponent.builder().utilsModule(new UtilsModule()).build();
+//        component.inject(this);
+//        utils = component.provideUtils();
 
         textView.setOnClickListener(v->{
-            //presenter.getState(1)
-            utils.show(this, "hello");
+            presenter.getState(1);
+//            utils.show(this, "hello");
         });
     }
 

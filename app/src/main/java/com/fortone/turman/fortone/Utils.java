@@ -3,8 +3,6 @@ package com.fortone.turman.fortone;
 import android.content.Context;
 import android.widget.Toast;
 
-import javax.inject.Inject;
-
 /**
  * Created by diaoqf on 2017/2/27.
  */
